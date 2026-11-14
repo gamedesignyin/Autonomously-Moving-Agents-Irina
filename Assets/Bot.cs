@@ -113,15 +113,28 @@ public class Bot : MonoBehaviour
         Collider hideCol = chosenGO.GetComponent<Collider>();
         Ray backRay = new Ray(chosenSpot, -chosenDir.normalized);
         RaycastHit info;
-        float distance = 100.0f;
+        float distance = 250.0f;
         hideCol.Raycast(backRay, out info, distance);
 
-        Seek(info.point + chosenDir.normalized * 2);
+        Seek(info.point + chosenDir.normalized);
+    }
+
+    bool CanSeeTarget()
+    {
+        RaycastHit raycastInfo;
+        Vector3 rayToTarget = target.transform.position - this.transform.position;
+        if (Physics.Raycast(this.transform.position, rayToTarget, out raycastInfo))
+        {
+            if (raycastInfo.transform.gameObject.tag == "cop")
+                return true;
+        }
+        return false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CleverHide();
+        if (CanSeeTarget())
+            CleverHide();
     }
 }
