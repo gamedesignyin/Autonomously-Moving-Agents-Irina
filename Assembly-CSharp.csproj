@@ -64,6 +64,7 @@
     <Compile Include="Assets\Drive.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Bot.cs" />
+    <Compile Include="Assets\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
