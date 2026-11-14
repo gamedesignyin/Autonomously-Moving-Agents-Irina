@@ -133,7 +133,7 @@ public class Bot : MonoBehaviour
         return false;
     }
 
-    bool CanSeeMe()
+    bool TargetCanSeeMe()
     {
         Vector3 rayToTarget = this.transform.position - target.transform.position;
         float lookAngle = Vector3.Angle(target.transform.forward, rayToTarget);
@@ -148,12 +148,23 @@ public class Bot : MonoBehaviour
         coolDown = false;
     }
 
+    bool TargetInRange()
+    {
+        if (Vector3.Distance(this.transform.position, target.transform.position) < 10)
+            return true;
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (!coolDown)
         {
-            if (CanSeeTarget() && CanSeeMe())
+            if (!TargetInRange())
+            {
+                Wander();
+            }
+            else if (CanSeeTarget() && TargetCanSeeMe())
             {
                 CleverHide();
                 coolDown = true;
